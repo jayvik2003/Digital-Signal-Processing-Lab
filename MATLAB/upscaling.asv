@@ -1,0 +1,18 @@
+function y = upscaling(x,f) 
+
+l = length(x)+ (length(x) - 1)*2;
+
+y = zeros(1,l);
+
+for n=1:l
+    if n = 1)
+
+    y(n) = x(n);
+
+    else
+    
+    
+    end
+
+
+end

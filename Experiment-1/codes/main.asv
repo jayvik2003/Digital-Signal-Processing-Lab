@@ -14,7 +14,6 @@ disp(acorr(x));
 
 disp('auto-correlation h is given by');
 disp(acorr(h));
-
 end
 
 %Convolution
@@ -42,19 +41,14 @@ function y = convl(x,h) % y here is the output
   end
 end
 
-function x0 = flip_lr(x)
-    l = length(x);
-    x0 = zeros(1,l);
-    for i = 1:l
-        x0(l-i+1) = x(i);
-    end
+function fliper()
 end 
 
 % cross_correlation
 
 function y1 = xcorr(x,h) % y1 here is the output
   
-  h0=flip_lr(h); %to rearange h(n) as h(-n)
+  h0=fliplr(h); %to rearange h(n) as h(-n)
   y1 = convl(x,h0);
 
 end
@@ -63,7 +57,7 @@ end
 
 function y2 = acorr(x) 
   
-  h0=flip_lr(x); %to rearange x(n) as x(-n)
+  h0=fliplr(x); %to rearange x(n) as x(-n)
   y2 = convl(x,h0);
 
 end

@@ -110,7 +110,7 @@
 
 \title{
 %	\logo{
-Experiment-1 
+Experiment-3 
 
 \large{EE:2801 DSP-Lab}
 
@@ -224,31 +224,22 @@ EE22BTECH11025
 % creates the second title. It will be ignored for other modes.
 %\IEEEpeerreviewmaketitle
 \section{Question}
-Simulate convolution and correlation between two signals in Matlab and C. Take input as \\
-\begin{center}
-  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-    \hline
-    $x$ & 0.3426 & 3.5784 & 2.7694 & -1.3499 & 3.0349 & 0.7254 & -0.0631 \\
-    \hline
-    $h$ & 0.7147 & -0.2050 & -0.1241 & 1.4897 & 1.4090 & & \\
-    \hline
-  \end{tabular}
-\end{center}
+Simulate fix-point arithemetic in matlab (addition and multiplication)
 \section{solution}
-Here is the C code, \\ \\
-\lstinputlisting[language=C]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/main.c}
-The following got computed in C, \\
-\begin{figure}[h] % 'h' specifies here (at the current location)
-  \centering
-  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/mainc.png}
-  \label{fig:your_label}
-\end{figure}
-Now, for the Matlab simulation,\\
-\lstinputlisting[language=Matlab]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/main.m}
+Matlab simulation,
+\lstinputlisting[language=Matlab]{/home/jay/Desktop/Dsp-lab/Experiment-3/codes/main2.m}
 The following got computed in  Matlab,\\
 \begin{figure}[h] % 'h' specifies here (at the current location)
   \centering
-  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/mainm.png}
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-3/codes/main.png}
   \label{fig:your_label}
 \end{figure}
+\clearpage
+Here is the plot to show , with change in fix-point (i.e each iteration of Q) the sum and product moves to more precise value. \\
+\begin{figure}[h] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-3/codes/plot.png}
+  \label{fig:your_label}
+\end{figure} \\
+With higher value of Q , the precision of sum and product can be improved
 \end{document}

@@ -110,7 +110,7 @@
 
 \title{
 %	\logo{
-Experiment-1 
+Experiment-2 
 
 \large{EE:2801 DSP-Lab}
 
@@ -224,31 +224,52 @@ EE22BTECH11025
 % creates the second title. It will be ignored for other modes.
 %\IEEEpeerreviewmaketitle
 \section{Question}
-Simulate convolution and correlation between two signals in Matlab and C. Take input as \\
-\begin{center}
-  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-    \hline
-    $x$ & 0.3426 & 3.5784 & 2.7694 & -1.3499 & 3.0349 & 0.7254 & -0.0631 \\
-    \hline
-    $h$ & 0.7147 & -0.2050 & -0.1241 & 1.4897 & 1.4090 & & \\
-    \hline
-  \end{tabular}
-\end{center}
+Downsample and upsample the signal given below with a factor 2 and 3 in Matlab and C. \\
+
+x[n]={0.5377    1.8339   -2.2588    0.8622    0.3188   -1.3077   -0.4336    0.3426    3.5784    2.7694   -1.3499    3.0349    0.7254   -0.0631    0.7147    -0.2050   -0.1241    1.4897    1.4090    1.4172}
 \section{solution}
 Here is the C code, \\ \\
-\lstinputlisting[language=C]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/main.c}
+\lstinputlisting[language=C]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/main.c}
 The following got computed in C, \\
+for factor = 2 \\
 \begin{figure}[h] % 'h' specifies here (at the current location)
   \centering
-  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/mainc.png}
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/c_2.png}
   \label{fig:your_label}
 \end{figure}
-Now, for the Matlab simulation,\\
-\lstinputlisting[language=Matlab]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/main.m}
-The following got computed in  Matlab,\\
+
+for factor = 3 \\
 \begin{figure}[h] % 'h' specifies here (at the current location)
   \centering
-  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-1/codes/mainm.png}
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/c_3.png}
+  \label{fig:your_label}
+\end{figure}
+\clearpage
+Now, for the Matlab simulation,\\
+\lstinputlisting[language=Matlab]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/main.m}
+The following got computed in  Matlab,\\
+for factor = 2 \\
+\begin{figure}[h] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/matlab_2.jpg}
+  \label{fig:your_label}
+\end{figure}
+\begin{figure}[h] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/mat_2.png}
+  \label{fig:your_label}
+\end{figure}
+\clearpage
+for factor = 3 \\
+\begin{figure}[h] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/matlab_3.jpg}
+  \label{fig:your_label}
+\end{figure}
+
+\begin{figure}[h] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-2/codes/mat_3.png}
   \label{fig:your_label}
 \end{figure}
 \end{document}
