@@ -1,0 +1,298 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\def\inputGnumericTable{}  
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} % loads  TikZ and tkz-base
+\usepackage{listings}
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}    
+\usepackage{gvv}                       
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}  
+%
+%\usepackage{setspace}
+%\usepackage{gensymb}
+%\doublespacing
+%\singlespacing
+
+%\usepackage{graphicx}
+%\usepackage{amssymb}
+%\usepackage{relsize}
+%\usepackage[cmex10]{amsmath}
+%\usepackage{amsthm}
+%\interdisplaylinepenalty=2500
+%\savesymbol{iint}
+%\usepackage{txfonts}
+%\restoresymbol{TXF}{iint}
+%\usepackage{wasysym}
+%\usepackage{amsthm}
+%\usepackage{iithtlc}
+%\usepackage{mathrsfs}
+%\usepackage{txfonts}
+%\usepackage{stfloats}
+%\usepackage{bm}
+%\usepackage{cite}
+%\usepackage{cases}
+%\usepackage{subfig}
+%\usepackage{xtab}
+%\usepackage{longtable}
+%\usepackage{multirow}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+%\usepackage{enumitem}
+%\usepackage{mathtools}
+%\usepackage{tikz}
+%\usepackage{circuitikz}
+%\usepackage{verbatim}
+%\usepackage{tfrupee}
+%\usepackage{stmaryrd}
+%\usetkzobj{all}
+%    \usepackage{color}                                            %%
+%    \usepackage{array}                                            %%
+%    \usepackage{longtable}                                        %%
+%    \usepackage{calc}                                             %%
+%    \usepackage{multirow}                                         %%
+%    \usepackage{hhline}                                           %%
+%    \usepackage{ifthen}                                           %%
+  %optionally (for landscape tables embedded in another document): %%
+%    \usepackage{lscape}     
+%\usepackage{multicol}
+%\usepackage{chngcntr}
+%\usepackage{enumerate}
+
+%\usepackage{wasysym}
+%\documentclass[conference]{IEEEtran}
+%\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+%\newtheorem{thm}{Theorem}[section] 
+%\newtheorem{defn}[thm]{Definition}
+%\newtheorem{algorithm}{Algorithm}[section]
+%\newtheorem{cor}{Corollary}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+%\bibliographystyle{ieeetr}
+\begin{document}
+%
+
+\bibliographystyle{IEEEtran}
+
+
+\vspace{3cm}
+
+\title{
+%	\logo{
+Experiment-5
+
+\large{EE:2801 DSP-Lab}
+
+Indian Institute of Technology, Hyderabad
+%	}
+}
+\author{Jay Vikrant
+
+EE22BTECH11025
+}	
+
+
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+%\title{Matrix Analysis through Octave}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+%\author{<-this % stops a space
+%\thanks{}}
+%}
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+%\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% make the title area
+\maketitle
+
+
+
+%\tableofcontents
+
+\bigskip
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+%\renewcommand{\theequation}{\theenumi}
+
+%\begin{abstract}
+%%\boldmath
+%In this letter, an algorithm for evaluating the exact analytical bit error rate  (BER)  for the piecewise linear (PL) combiner for  multiple relays is presented. Previous results were available only for upto three relays. The algorithm is unique in the sense that  the actual mathematical expressions, that are prohibitively large, need not be explicitly obtained. The diversity gain due to multiple relays is shown through plots of the analytical BER, well supported by simulations. 
+%
+%\end{abstract}
+% IEEEtran.cls defaults to using nonbold math in the Abstract.
+% This preserves the distinction between vectors and scalars. However,
+% if the journal you are submitting to favors bold math in the abstract,
+% then you can use LaTeX's standard command \boldmath at the very start
+% of the abstract to achieve this. Many IEEE journals frown on math
+% in the abstract anyway.
+
+% Note that keywords are not normally used for peerreview papers.
+%\begin{IEEEkeywords}
+%Cooperative diversity, decode and forward, piecewise linear
+%\end{IEEEkeywords}
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+%\IEEEpeerreviewmaketitle
+\section{Aim of the experiment}
+Design of digital filters such as Low Pass Filter (LPF), Band Pass Filter(BPF).
+\section{Theory of Digital FIR}
+Finite Impulse Response (FIR) filters are fundamental in digital signal processing (DSP), extensively applied in audio processing, image processing, and communications. This technical overview delves into the core concepts, characteristics, design methodologies, and applications of FIR filters. An FIR filter operates on a finite number of input samples, producing an output sequence through a weighted sum of these samples. Mathematically, the output sequence \(y[n]\) is given by the convolution of the input sequence \(x[n]\) and a set of coefficients \(b_k\):
+
+\[ y[n] = \sum_{k=0}^{N} a_k \cdot x[n-k] \]
+
+Here, \(N\) is the order of the filter, determining the number of delay elements required. The coefficients \(b_k\) are chosen to achieve the desired frequency response.
+
+\section{Characteristics}
+
+\begin{itemize}
+    \item \textbf{Linear Phase:} FIR filters exhibit a linear phase response, ensuring that all frequency components experience the same delay.
+    
+    \item \textbf{Stability:} FIR filters are inherently stable, guaranteeing that the output signal remains bounded over time. This stability is vital in control systems.
+    \item \textbf{Output Response:} The output response to an input impulse eventually decays to zero, making FIR filters suitable for applications with bounded response times, like radar signal processing.
+    \item \textbf{Easy to Implement:} FIR filters can be implemented using basic arithmetic operations such as multiplication and addition. 
+	\item \textbf{Design Flexibility:} Adjusting the filter coefficients allows for a wide range of frequency responses. 
+\end{itemize}
+\section{Designing FIR Filters}
+Designing FIR filters involves selecting coefficients to achieve a desired frequency response. There are Several methods to implent this one of which is:
+\begin{itemize}
+\item \textbf{Windowing Method:} Utilizes a window function to truncate the ideal impulse response, influencing characteristics like band width and stopband attenuation.
+\end{itemize}
+This method will be used in this experiment to demonstrate digital FIR.
+\section{Code , Output and Plot of the simulations}
+\textbf{Matlab simulation,}
+\lstinputlisting[language=Matlab]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/main.m}
+The following got computed in  Matlab,\\
+\begin{figure}[ht] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=0.5\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/lpft.jpg}
+  \label{fig:your_label}
+  \caption{Impulse response plot of lpf}
+\end{figure}
+\begin{figure}[ht] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=0.5\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/lpf.jpg}
+  \caption{The magnitude plot of the impulse response of lpf using 'fvtool' cmd}
+  \label{fig:your_label}
+\end{figure}
+\begin{figure}[ht] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=0.5\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/bpft.jpg}
+  \caption{Impulse response plot of bpf}
+  \label{fig:your_label}
+\end{figure}
+\begin{figure}[ht] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=0.5\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/bpf.jpg}
+  \caption{The magnitude plot of the impulse response of bpf using 'fvtool' cmd}
+  \label{fig:your_label}
+\end{figure}
+\begin{figure}[ht] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/mat.png}
+  \caption{Impulse response of lpf(h1) and bpf(h2)}
+  \label{fig:your_label}
+\end{figure}
+\clearpage
+\textbf{C simulation,}
+\lstinputlisting[language=C]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/main.c}
+The following got computed in  C,\\
+\begin{figure}[ht] % 'h' specifies here (at the current location)
+  \centering
+  \includegraphics[width=\textwidth]{/home/jay/Desktop/Dsp-lab/Experiment-5/codes/c.png}
+  \label{fig:your_label}
+  \caption{array of lpf and bpf}
+\end{figure}
+\section{Observations and Conclusion}
+In this experiment, we conducted a digital Finite Impulse Response (FIR) filter implementation to create both a Low-Pass Filter (LPF) and a Band-Pass Filter (BPF). The design of these filters utilized the windowing method, the window function length influenced the trade-off between the width of the main lobe and the levels of sidelobes in the frequency response in the case lpf and bpf.  \\
+The LPF demonstrated efficient attenuation of high-frequency components with a smooth roll-off near the cutoff(400Hz). The performance of the LPF was influenced by the choice of window function, impacting parameters such as the band width and sidelobe levels. Similarly, the BPF successfully exhibited a passband centered around the frequency(500 to 1200 Hz), effectively suppressing frequencies outside the desired band. 
+\end{document}

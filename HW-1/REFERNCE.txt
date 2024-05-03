@@ -1,0 +1,188 @@
+One class of sound effects in electronic music synthesis and production create a periodically varying delay in the input signal, i.e.,
+
+		y(n) = x(n − D(n)),
+
+where, x(n) = sin(2π*3400*(n/fs)) and  n = 1:39999. 
+
+Define the time-varying delay
+
+		D(n) = meanDelay + delayAmp * sin(2π(fj)*(n/fs));
+		
+If D(n) is not an integer the corresponding y value is found by linearly interpolating between the two neighbouring samples in the input sequence x(·).
+
+If n-D(n) is outside of the range 1 to 39999 , please assign corresponding y as 0.
+
+Design an algorithm to implement the signal processing operation described above and implement it in a Matlab function
+
+Instructions:
+
+1. Function name : timevaring_delay.m
+
+2. Function call: y = timevaring delay(meanDelay,delayAmp,fj , fs)
+
+3. Input arguments
+	(a) meanDelay, delayAmp, fj and fs: As defined above.
+
+4. Output
+	(a) y: Delayed output (a row vector)
+	
+we want a variable delay, i.e., y(n)=x(n-D(n)), where D(n) may not be an integer (hence the interpolation you're doing). You can try with integer and simple non-integer delays (e.g,. 37.5 samples) 
+	
+Use Matlab’s built-in sin function to create a look up table (often abbreviated as a LUT, pronounced like ”CUT” but with an L-sound) of 512 equally spaced samples that span one period of sin(θ) starting at θ = 0. In other words,
+			
+	LUT(k) = sin(2*pi*k/512) , k = 0,1,2, ... ,511;
+	
+(θ is measured in radians).
+
+
+Use only the values from the above LUT (and any post-processing those values), generate (or find close enough approximations to) the samples of an arbitrary (continuous time) sine wave of frequency fc sampled at frequency fs. In other words, we ideally want
+	
+	y_ideal(m) = sin(2*π*(fc/fs)*m);
+	
+where m = 0, 1, . . . , numSamples −1, with numSamples being the number of samples desired.
+
+
+If y_ideal(m) cannot be produced by samples in the LUT you are expected come up with an algorithm to use suitable interpolation techniques using only samples from the LUT. Some of these techniques were discussed in the tutorial. Denote the output of your algorithm by y(m).
+
+Implement the algorithm to produce y(·) in a Matlab function. The function must not invoke any trigonometric or series commands (except to form the LUT, as noted above).
+
+Instruction:
+
+1. Function name : generateToneLUT.m
+
+2. Function call: y = generateToneLUT(fc,fs, numSamples)
+
+3. Input arguments:
+
+	(a) fc [specified in Hz]: frequency of the continous time sine wave being sampled.
+
+	(b) fs [specified in Hz]: sampling frequency.
+	
+	(c) The number of samples numSamples in the output array y.
+	
+4. Outputs:
+
+	(a) y should be a row vector of size 1 × numSamples comprising the samples of sin(2π*m*(fc/fs))
+	for m = 0, 1, . . . , numSamples−1, generated using the sine LUT.
+	
+Note: The function should work for arbitrary fc, for fs!= 0, and numSamples >= 1.
+
+
+
+
+This problem will implement the vector rotation approach discussed in the class to generate (or find close enough approximations to) the samples of an arbitrary (continuous time) sine wave of frequency fc sampled at frequency fs. In other words, we ideally want to generate the sequence
+
+	y(n) = [cos(w*n) sin(w*n)];
+	
+where n = 0, 1, . . . , numSamples −1, with numSamples being the number of samples desired and w =2π(fc/fs).
+
+
+Using the trigonometric formulas for cos(A+B) and sin(A+B) it is easy to show that we can recursively generate cos(ω(n+ 1)) and sin(ω(n+ 1)) from the previous values cos(w*n) and sin(w*n) using the vector rotation
+
+	y(n + 1) = A*y(n),
+	
+	A = [cos(w) -sin(w); sin(w) cos(w)];
+	
+is the rotation matrix that rotates a vector by ω radians, and the initial state y(0) = [1 0]
+
+The catch here is that finding A accurately on real-world embedded CPUs/GPUs can be quite a challenge: the reason being the values of sin and cos can often only found approximately, e.g., using their Taylor expansion, which involves a lot of multiplications and divisions, which are computationally intensive operations. The aim of this problem is to study the impact of such approximations on the above-mentioned recursion. Let us call the matrix produced by such approximate sine and cosine terms A1.
+
+Write a Matlab function toneGen_rotation that implements the recursion,
+
+	y1(n+1) = A1*y1(n);
+	
+where y1(0) = y(0), but A1 is not quite equal to A, but is obtained by approximating sin(ω) and cos(ω) entries in A using Taylor series approximations up to 10 terms. The idea is to use A1 and yet try to make the vector-valued sequence y1(.) a good approximation of the ideal vector-valued sequence y(·).
+
+Instructions:
+
+1. Function name: toneGen_rotation.m
+
+2. Function call: [sin Wave, cos Wave] = toneGen_rotation(fc, fs)
+
+3. Input Arguments:
+
+	a)fc: freqency of the continuous time sinusoid being sampled [specified in Hz]
+
+	b)fs: Sampling frequency [specified in Hz]
+
+4. For this problem alone, let us fix the output size to 16000 samples. In other words, each of sin Wave, cos Wave should be row vectors of size (1 × 16000).
+
+Note: The function should work for arbitrary fc, and for fs != 0.
+
+
+The IIR filter can function as a ”signal generator” for a class of signals if we let it run in its ”zero-input” mode (i.e., setting x(n) = 0 for all n) and altering the transfer function and the initial states depending on the signal to be generated.
+
+We use this idea in this problem to design a specific form of signal generator we might call a digital oscillator (much like the LC oscillator in continuous time) using the zero-input response of an IIR filter. We start with the second-order constant coefficient difference equation
+
+	y(n) = a*y(n − 2) + b*y(n − 1) + x(n).
+	
+
+Write the output sequence y(·) as a superposition of the zero-input (zi) sequence (that doesn’t depend on input) and the zero-state (zs) sequence (that doesn’t depend on the initial state). In terms of their respective z-transforms,
+
+	Y (z) = Y_zi(z) + Y_zs(z)
+	
+where we derived Y_zi(z) and Y_zi(z) in terms of the polynomials in the transfer function, the initial conditions y(−1), y(−2) and the input sequence’s z-transform X(z).
+
+Now, suppose you are given A, w, and a target sequence
+
+	y_target(n) = A*sin(w*n), n = 0, 1, . . . , 15999.
+	
+Adopting a zero-input strategy, and using the results developed in the lectures, choose a, b, y(−1) and y(−2) in the above second order system such that
+	y_zi(n) = y_target(n), n = 0, 1, . . . , 15999.
+
+Derive an algorithm that takes in A, fc and fs, and computes a, b, y(−1) and y(−2) to outputs y(·) that matches ytarget(·) as above.
+
+Implement this algorithm as a Matlab function tone_generation_iir()
+
+Instructions 
+
+1. Function name: tone generation iir.m
+
+2. Function call: y = tone_generation_iir(fc, fs, A)
+
+3. Input arguments:
+
+	(a) fc: frequency of the continuous time sinusoid being sampled [specified in Hz]
+	
+	(b) fs: Sampling frequency [specified in Hz]
+	
+	(c) A: Peak amplitude of the output sinusoidal sequence.
+
+4. Output:
+
+	(a) y: a row vector of size 1 × 16000
+
+Note: The function should handle arbitrary values provided for A, fc, and fs!= 0. All other calculations – a, b, y(−1), y(−2), derivation of w are internal to this function and must not be outputted.
+
+
+function [y2, y1] = test(s, sinWav, c, cosWav)
+    %tolerance = 0.01;
+
+    check_cos = (abs(c) - abs(cosWav))*100 ;
+    check_sin = (abs(s) - abs(sinWav))*100 ;
+    y1 = check_cos';
+    y2 = check_sin';
+    disp(length(find(check_sin)));
+    disp(length(find(check_cos)));
+end
+
+function error = test(tones_output,y)
+
+    error = (abs(y) - abs(tones_output))*100;
+
+end
+
+
+function [y,k,norm_k] = generateToneLUT(fc, fs, numSamples)
+    
+    theta = linspace(0, 2*pi, 512);
+    LUT = sin(theta);
+
+    k = floor((1:numSamples) * fc/fs * 512);
+    frac = ((1:numSamples) * fc/fs * 512) - (k);
+    norm_k = mod(k - 1, 512) + 1;
+
+    y = (1-frac) .* LUT(norm_k) + frac .* LUT(mod(norm_k, 512) + 1);
+
+end
+>> tar('EE22BTECH11025.tar',{'generateToneLUT.m','toneGen_rotation.m','tone_generation_iir.m','timevarying_delay.m'});

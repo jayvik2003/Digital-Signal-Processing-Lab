@@ -1,0 +1,19 @@
+function musical_notes()
+    %Define constants
+    f1 = 440; %Frequency of the first note 
+    duration = 2; %Duration of each note in seconds
+    sampling_rate = 8000; %Sampling rate in Hz
+
+    %Initialize the column vector to store the notes
+    all_notes = zeros(duration * sampling_rate * 12, 1);
+    disp(li)
+    %Generate and store each note
+    for n = 1:12
+        frequency = f1 * 2^((n - 1) / 12);
+        t = 0 : duration : duration * sampling_rate;
+        wave = sin(2 * pi * frequency * t);
+        
+        indices = (1:length(wave)) + (length(wave) * (n - 1));
+        all_notes(indices) = wave;
+    end
+end

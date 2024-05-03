@@ -1,0 +1,87 @@
+
+
+fs = 4000;
+f1 = 500;
+f2 = 1000;
+f3 = 700;
+
+t = 0:1/fs:1; 
+x = sin(2 * pi * f1 * t) + 2 * sin(2 * pi * f2 * t) + 1.5 * sin(2 * pi * f3 * t); 
+
+%(1)
+L = 2;
+x0 = upsampler(x,L);
+N = 39;
+wc1 = pi/L;
+fc1 = (wc1*fs)/(2*pi);
+h0 = lpf_func(fc1,fs,N);
+x1 = L*convl(x0,h0);
+%x2 = x1(20:end-19);
+
+M = 2;
+wc2 = pi/M;
+fc2 = (wc2*fs)/(2*pi);
+h1 = 1*lpf_func(fc2,fs,N);
+x3 = convl(x1,h1);
+%x4 = x3(20:end-19);
+
+x5 = downsampler(x3,M);
+
+
+error = mean(abs(x5((N+1)/2:fs+(N+1)/2)-x));
+disp(error)
+%disp(error);
+function y1 = upsampler(x, f)
+    y1 = zeros(1, length(x) * f);
+    y1(1:f:end) = x;
+end
+
+function y2 = downsampler(x, f)
+    y2 = zeros(1, floor(length(x) / f));
+    y2 = x(1:f:end);
+end
+
+function y = lpf_func(fc,fs,N)
+
+wc = (2*pi*fc)/(fs);
+n = 1;
+y = zeros(1,N-1);
+for k = -(N-1)/2:(N-1)/2 
+    if k == 0
+        y(n) = wc/pi;
+    else
+        y(n) = sin((wc*k))/(pi*k);
+    end
+    n = n + 1;
+end
+end
+
+function y = hw(N) %window function
+
+n = 1;
+y = zeros(1,N);
+for k = 0  : (N-1)
+    if k >= 0 && k <= (N-1)
+        y(n) = 0.54 - 0.46*cos((2*pi*k)/(N-1));
+    else 
+        y(n) = 0;
+    end
+    n = n + 1;
+end
+end
+
+function y = convl(x,h) % y here is the output
+
+  l = length(x) + length(h) - 1;
+
+  y = zeros(1, l);
+
+  for n = 1:l
+    for k = 1:length(x)
+      if (n - k + 1) >= 1 && (n - k + 1) <= length(h) 
+        y(n) = y(n) + x(k) * h(n - k + 1); % This is just /sigma x(k)*h(n-k)
+      end
+    end
+  end
+end
+
